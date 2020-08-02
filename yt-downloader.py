@@ -5,19 +5,22 @@
 
 # ----------------------------------- SOURCE CODE -----------------------------------
 from datetime import datetime
-from pytube import *
+from pytube import YouTube #pytubee3
+
 start_time = datetime.now()
 
 def initialize():
     print('Starting .   .   .')
 
 def yt():
-    #ss
-    print('Hello World')
+    print("Enter the URL of the YouTube video you want to be downloaded: ")
+    url = input()
+    YouTube(url).streams[0].download()
 
 
 if __name__ == '__main__':
     initialize()
+    yt()
 
 
 end_time = datetime.now()
