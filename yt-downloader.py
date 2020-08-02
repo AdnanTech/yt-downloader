@@ -9,13 +9,16 @@ from datetime import datetime
 start_time = datetime.now()
 
 def initialize():
-    print('Starting')
+    print('Starting .   .   .')
 
-def main():
-    print('Code goes here')
+def yt():
+    #ss
+    print('Hello World')
 
-initialize()
-main()
+
+if __name__ == '__main__':
+    initialize()
+
 
 end_time = datetime.now()
 print('Duration: {}'.format(end_time - start_time))
