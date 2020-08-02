@@ -5,6 +5,7 @@
 
 # ----------------------------------- SOURCE CODE -----------------------------------
 from datetime import datetime
+from pytube3 import YouTube
 
 start_time = datetime.now()
 
