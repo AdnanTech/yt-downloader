@@ -20,7 +20,7 @@ def one_video():
     youtube = YouTube(url)
     print(youtube.title)
     video = youtube.streams.first()
-    video.download("C:/Users/Adnan/Desktop") # Path where to store the video, default is the file where the script is
+    video.filter(only_audio=True).download("C:/Users/Adnan/Desktop") # Path where to store the video, default is the file where the script is
 
 def playlist():
     print("Enter the URL of the YouTube PLAYLIST you want to be downloaded: ")
