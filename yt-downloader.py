@@ -5,8 +5,7 @@
 
 # ----------------------------------- SOURCE CODE -----------------------------------
 from datetime import datetime
-from pytube3 import YouTube
-
+from pytube import *
 start_time = datetime.now()
 
 def initialize():
