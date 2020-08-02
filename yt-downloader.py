@@ -5,22 +5,31 @@
 
 # ----------------------------------- SOURCE CODE -----------------------------------
 from datetime import datetime
-from pytube import YouTube #pytubee3
+from pytube import YouTube #pytube3
+from pytube import Playlist
 
 start_time = datetime.now()
 
 def initialize():
     print('Starting .   .   .')
 
-def yt():
-    print("Enter the URL of the YouTube video you want to be downloaded: ")
+def one_video():
+    print("Enter the URL of the YouTube VIDEO you want to be downloaded: ")
     url = input()
-    YouTube(url).streams[0].download()
+    youtube = YouTube(url)
+    video = youtube.streams.first()
+    video.download("C:/Users/Adnan/Desktop") # Path where to store the video
 
+def playlist():
+    print("Enter the URL of the YouTube PLAYLIST you want to be downloaded: ")
+    url = input()
+    playlist = Playlist(url)
+    for video in playlist:
+     	video.streams.download()
 
 if __name__ == '__main__':
     initialize()
-    yt()
+    one_video()
 
 
 end_time = datetime.now()
