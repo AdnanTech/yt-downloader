@@ -7,6 +7,7 @@
 from datetime import datetime
 from pytube import YouTube #pytube3
 from pytube import Playlist
+import re
 
 start_time = datetime.now()
 
@@ -17,20 +18,25 @@ def one_video():
     print("Enter the URL of the YouTube VIDEO you want to be downloaded: ")
     url = input()
     youtube = YouTube(url)
+    print(youtube.title)
     video = youtube.streams.first()
-    video.download("C:/Users/Adnan/Desktop") # Path where to store the video
+    video.download("C:/Users/Adnan/Desktop") # Path where to store the video, default is the file where the script is
 
 def playlist():
     print("Enter the URL of the YouTube PLAYLIST you want to be downloaded: ")
     url = input()
     playlist = Playlist(url)
-    for video in playlist:
-     	video.streams.download()
+    # playlist._video_regex = re.compile(r"\"url\":\"(/watch\?v=[\w-]*)")
+    # playlist.download_all()
+    # for video in playlist:
+    #     video.streams.get_highest_resolution().download()
+
+    #playlists don't work, could just use a multiple single URL approach?
 
 if __name__ == '__main__':
     initialize()
     one_video()
-
+    # playlist()
 
 end_time = datetime.now()
 print('Duration: {}'.format(end_time - start_time))
