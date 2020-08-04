@@ -52,8 +52,6 @@ def menu():
             playlist()
         elif userInput == 'v':
             videos()
-        elif userInput == 's':
-            settings()
         elif userInput == 'm':
             music()
         elif userInput == "c":
@@ -62,12 +60,27 @@ def menu():
             os._exit(0)
 
 def videos():
-    url = input("Enter the URL of the YouTube VIDEO you want to be downloaded: ")
-    youtube = YouTube(url)
-    print(youtube.title)
+    while True:
+        try:
+            url = input("Enter the URL or (e)xit: ")
+            if url == 'e':
+                break
+            else:
+                youtube = YouTube(url)
+                print(youtube.title)
 
-    video = youtube.streams.first()
-    video.download(directory_path) 
+                video = youtube.streams.first()
+                name_pref = input("Do you want to rename these files? (y/n): ")
+
+                if name_pref == 'y':
+                    new_file_name = input("New file name: ")
+                    print((new_file_name  + '.mp4'))
+                    os.rename(file_download, (directory_path + '\\' + new_file_name  + '.mp4'))
+                elif name_pref == 'n':
+                    video.download(directory_path) 
+        except:
+            print("An error has occured")
+            break
 
 def playlist():
     try:
@@ -123,28 +136,6 @@ def playlist():
         print("Playlist downloaded successfully")
     except:
         print("An error occurred.")
-
-def settings():
-    print("Under development")
-    # f = open('directory.txt', "r")
-    # print('Your current directory is: ' + f.read())
-    # current_dir = f.readline()
-
-    # print(str(current_dir))
-    # print(r'"' + str(current_dir) + '\directory.txt"')
-
-    # dir_input = input("Do you want to change download directory? (y/n): ").lower()
-    
-    # if dir_input == 'y':
-    #     new_dir = input("Enter new directory: ")
-    #     z = open(('r"' + current_dir + '/directory.txt"'), "w")
-    #     z.write('r"' + new_dir + '"')
-    #     z.close()
-    #     f.close()
-    # elif dir_input == 'n':
-    #     f.close()
-
-
 
 def clear():
     dirpath = directory_path
