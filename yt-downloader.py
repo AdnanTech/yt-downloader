@@ -15,7 +15,7 @@ from pytube import YouTube
 from pytube import Playlist
 import re
 import os
-
+import getpass
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -23,14 +23,24 @@ from selenium.webdriver.common.keys import Keys
 start_time = datetime.now()
 
 def menu():
-    print("Do you want to download a playlist, videos, or exit? (p/v/e) ")
-    userInput = input().lower()
+
+    username = getpass.getuser()
+
+    print("------------------------------------------------------------------------------------------ ")
+    print("----------------------------------    Hello, " + username + "     ----------------------------------- ")
+    print("------------------------------------------------------------------------------------------ ")
+    print("------------------------------------------------------------------------------------------\n")
+
 
     while True:
+        print("Do you want to change your (s)ettings, download a (p)laylist, (v)ideos, or (e)xit? ")
+        userInput = input().lower()
         if userInput == 'p':
             playlist()
         elif userInput == 'v':
             videos()
+        elif userInput == 's':
+            settings()
         elif userInput == 'e':
             os._exit(0)
 
@@ -43,6 +53,8 @@ def videos():
     # mp3 or mp4 download preference
     print("mp3 or mp4? (3/4): ")
     pref = input().lower()
+
+    
     if pref == 'mp3' or pref == '3':
         video = youtube.streams.filter(only_audio=True).first()
         video.download("C:/Users/Adnan/Desktop") 
@@ -76,6 +88,8 @@ def playlist():
 
     print("zz")
 
+def settings():
+    print("TB developed")
 
 if __name__ == '__main__':
     menu()
