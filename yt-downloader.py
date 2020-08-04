@@ -7,7 +7,6 @@
 
 # Add option to log into yt so you can download private playlists
 # Add functionality to switch between Windows & Mac OS
-#
 
 # ----------------------------------- SOURCE CODE -----------------------------------
 from datetime import datetime
