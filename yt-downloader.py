@@ -23,8 +23,9 @@ from selenium.webdriver.common.keys import Keys
 
 start_time = datetime.now()
 
-directory_path = r"C:\Users\Adnan\Documents\GitHub\yt-downloader\data"
 def menu():
+    global directory_path
+    directory_path = r"C:\Users\Adnan\Documents\GitHub\yt-downloader\data"
 
     username = getpass.getuser()
 
