@@ -29,9 +29,10 @@ def menu():
         global directory_path
         directory_path = input("Adnan's Laptop, Macbook or Sameer? (aw/am/s): ").lower()
         if directory_path == 'aw' or directory_path == 'am' or directory_path == 's':
-            directory_path = r"C:\Users\Adnan\Documents\GitHub\yt-downloader\data" # Default dir is my github
+            # directory_path = r"C:\Users\Adnan\Documents\GitHub\yt-downloader\data" # Default dir is my github
+
             if directory_path == 'aw':
-                directory_path = r"C:\Users\Adnan\Desktop"
+                directory_path = r"C:\Users\Adnan\Documents\GitHub\yt-downloader\data"
             elif directory_path == 'am':
                 directory_path = r"C:\Users\Adnan\Documents\GitHub\yt-downloader\data"
             elif directory_path == 's':
@@ -93,15 +94,30 @@ def playlist():
 
         # First link will be a duplicate with a different URL, because thats how YouTube playlists work
         # The algorithm of collecting a playlist is abstract, the beginning of every scrape there are 2 links that are songs,
-        # but not actually indexed to the playlist, so we start from the third link
-        for l in range(2, len(playlist)):
-                youtube = YouTube(playlist[l])
-                # print(youtube.title + ' - ' + playlist[l])
-                print(youtube.title)
-                video = youtube.streams.filter(only_audio=True).first()
-                file_download = video.download(directory_path)
-                # changes file to mp3
-                os.rename(file_download, file_download[0:-4]  + '.mp3')
+        # but not actually indexed to the playlist, so we start from the third link, which is the beginning of the playlist
+
+        name_pref = input("Do you want to rename these files? (y/n): ")
+
+        if name_pref == 'y':
+            for l in range(2, len(playlist)):
+                    youtube = YouTube(playlist[l])
+                    print(youtube.title)
+                    video = youtube.streams.filter(only_audio=True).first()
+                    file_download = video.download(directory_path)
+                    new_file_name = input("New file name: ")
+                    print((new_file_name  + '.mp3'))
+                    # changes file to mp3
+                    os.rename(file_download, (directory_path + '\\' + new_file_name  + '.mp3'))
+                    os.remove(file_download)
+        elif name_pref == 'n':
+            for l in range(2, len(playlist)):
+                    youtube = YouTube(playlist[l])
+                    # print(youtube.title + ' - ' + playlist[l])
+                    print(youtube.title)
+                    video = youtube.streams.filter(only_audio=True).first()
+                    file_download = video.download(directory_path)
+                    # changes file to mp3
+                    os.rename(file_download, file_download[0:-4]  + '.mp3')
 
         print("Playlist successfully downloaded.")
     except:
