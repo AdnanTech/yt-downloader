@@ -3,9 +3,15 @@
 #           Goal: Create a program to download a YouTube videos
 #           Objective: Create a progra that downloads a YouTube video from a URL as mp3/mp4 format
 
+# ----------------------------------- TO DO -----------------------------------
+
+# Add option to log into yt so you can download private playlists
+# Add functionality to switch between Windows & Mac OS
+#
+
 # ----------------------------------- SOURCE CODE -----------------------------------
 from datetime import datetime
-from pytube import YouTube #pytube3
+from pytube import YouTube
 from pytube import Playlist
 import re
 
@@ -41,8 +47,11 @@ def playlist():
 def download():
     playlist=[]
 
+    print("Enter URL of the PLAYLIST: ")
+    url = input()
+
     driver = webdriver.Chrome()
-    driver.get("https://www.youtube.com/playlist?list=PLcYK4PlHbZQvbWClI38SfOjBt3godBsY1")
+    driver.get(url)
 
     links = driver.find_elements_by_xpath("//a[@href]")
     for link in links:
@@ -50,15 +59,14 @@ def download():
         if href.startswith('https://www.youtube.com/watch?v='):
             playlist.append(href)
 
+    driver.close()
+
     playlist = list(dict.fromkeys(playlist))
-    print(len(playlist))
-   
-    for a in playlist:
-        print(a)
+    print("Length of playlist: " + str((len(playlist) - 1)))
 
     # First link will be a duplicate with a different URL, because thats how YouTube playlists work
     for l in range(1, len(playlist)):
-
+        print(playlist[l])
     print("zz")
 
 
