@@ -25,7 +25,14 @@ start_time = datetime.now()
 
 def menu():
     global directory_path
-    directory_path = r"C:\Users\Adnan\Documents\GitHub\yt-downloader\data"
+    directory_path = input("Adnan's Laptop, Macbook or Sameer? (aw/am/s)").lower()
+
+    if directory_path == 'aw':
+        directory_path = r"C:\Users\Adnan\Documents\GitHub\yt-downloader\data"
+    elif directory_path == 'am':
+        directory_path = r"C:\Users\Adnan\Documents\GitHub\yt-downloader\data"
+    elif directory_path == 's':
+        directory_path = r"C:\Users\Sameer\Desktop"
 
     username = getpass.getuser()
 
