@@ -40,15 +40,12 @@ def playlist():
 def download():
     playlist=[]
     url=input("Enter the Youtube Playlist URL : ") #Takes the Playlist Link
-    data= requests.get(url)
-    soup=bs4.BeautifulSoup(data)
-
-    for links in soup.find_all('a'):
-        link=links.get('href')
-        # if (link[0:6]=="/watch" and link[0]!="#"):
-        print(link)
-
-    # print(playlist)
+    r = requests.get(url)
+    page = r.text
+    soup=bs(page,'html.parser')
+    res=soup.find_all('a',{'class':'pl-video-title-link'})
+    for l in res:
+        print(l.get("href"))
 
 
 
