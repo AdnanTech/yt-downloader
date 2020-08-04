@@ -18,11 +18,8 @@ import os
 import getpass
 import shutil
 import time
-
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-
-start_time = datetime.now()
 
 def menu():
     while True:
@@ -40,7 +37,7 @@ def menu():
             break
 
     username = getpass.getuser()
-
+    print("\n")
     print("------------------------------------------------------------------------------------------ ")
     print("----------------------------------    Hello, " + username + "     ----------------------------------- ")
     print("------------------------------------------------------------------------------------------\n")
@@ -97,7 +94,8 @@ def playlist():
                 playlist.append(href)
         driver.close()
 
-        playlist = list(dict.fromkeys(playlist)) # Filters so there are no duplicates
+        #Gets rid of duplicate links
+        playlist = list(dict.fromkeys(playlist))
         print("Length of playlist: " + str((len(playlist) - 2)))
 
         # outputs all the links in the playlist
@@ -172,10 +170,6 @@ def music():
         except:
             print("An error occurred")
             break
-                
 
 if __name__ == '__main__':
     menu()
-
-end_time = datetime.now()
-print('Duration: {}'.format(end_time - start_time))
