@@ -25,16 +25,18 @@ from selenium.webdriver.common.keys import Keys
 start_time = datetime.now()
 
 def menu():
-    global directory_path
-    directory_path = input("Adnan's Laptop, Macbook or Sameer? (aw/am/s): ").lower()
-
-    directory_path = r"C:\Users\Adnan\Documents\GitHub\yt-downloader\data" # Default dir is my github
-    if directory_path == 'aw':
-        directory_path = r"C:\Users\Adnan\Documents\GitHub\yt-downloader\data"
-    elif directory_path == 'am':
-        directory_path = r"C:\Users\Adnan\Documents\GitHub\yt-downloader\data"
-    elif directory_path == 's':
-        directory_path = r"C:\Users\Sameer\Desktop"
+    while True:
+        global directory_path
+        directory_path = input("Adnan's Laptop, Macbook or Sameer? (aw/am/s): ").lower()
+        if directory_path == 'aw' or directory_path == 'am' or directory_path == 's':
+            directory_path = r"C:\Users\Adnan\Documents\GitHub\yt-downloader\data" # Default dir is my github
+            if directory_path == 'aw':
+                directory_path = r"C:\Users\Adnan\Desktop"
+            elif directory_path == 'am':
+                directory_path = r"C:\Users\Adnan\Documents\GitHub\yt-downloader\data"
+            elif directory_path == 's':
+                directory_path = r"C:\Users\Sameer\Desktop"
+            break
 
     username = getpass.getuser()
 
@@ -68,38 +70,46 @@ def videos():
     video.download(directory_path) 
 
 def playlist():
-    playlist=[]
+    try:
+        playlist=[]
 
-    url = input("Enter URL of the PLAYLIST: ")
+        url = input("Enter URL of the PLAYLIST: ")
 
-    driver = webdriver.Chrome()
-    driver.get(url)
-    time.sleep(5)
-    links = driver.find_elements_by_xpath("//a[@href]")
-    for link in links:
-        href = link.get_attribute("href")
-        if href.startswith('https://www.youtube.com/watch?v='):
-            playlist.append(href)
-    driver.close()
+        driver = webdriver.Chrome()
+        driver.get(url)
+        links = driver.find_elements_by_xpath("//a[@href]")
+        for link in links:
+            href = link.get_attribute("href")
+            if href.startswith('https://www.youtube.com/watch?v='):
+                playlist.append(href)
+        driver.close()
 
-    playlist = list(dict.fromkeys(playlist)) # Filters so there are no duplicates
-    print("Length of playlist: " + str((len(playlist) - 2)))
+        playlist = list(dict.fromkeys(playlist)) # Filters so there are no duplicates
+        print("Length of playlist: " + str((len(playlist) - 2)))
 
-    for x in playlist:
-        print(x)
+        # outputs all the links in the playlist
+        # for x in playlist:
+        #     print(x)
 
-    # First link will be a duplicate with a different URL, because thats how YouTube playlists work
-    # The algorithm of collecting a playlist is abstract, the beginning of every scrape there are 2 links that are songs,
-    # but not actually indexed to the playlist, so we start from the third link
-    for l in range(2, len(playlist)):
-            youtube = YouTube(playlist[l])
-            print(youtube.title + ' - ' + playlist[l])
-            video = youtube.streams.filter(only_audio=True).first()
-            file_download = video.download(directory_path)
-            # changes file to mp3
-            os.rename(file_download, file_download[0:-4]  + '.mp3')
+        # First link will be a duplicate with a different URL, because thats how YouTube playlists work
+        # The algorithm of collecting a playlist is abstract, the beginning of every scrape there are 2 links that are songs,
+        # but not actually indexed to the playlist, so we start from the third link
+        for l in range(2, len(playlist)):
+                youtube = YouTube(playlist[l])
+                # print(youtube.title + ' - ' + playlist[l])
+                print(youtube.title)
+                video = youtube.streams.filter(only_audio=True).first()
+                file_download = video.download(directory_path)
+                # changes file to mp3
+                os.rename(file_download, file_download[0:-4]  + '.mp3')
 
-    print("zz")
+        print("Playlist successfully downloaded.")
+    except:
+        try:
+            driver.close()
+        except:
+            pass
+        print("An error occurred")
 
 def settings():
     print("Under development")
