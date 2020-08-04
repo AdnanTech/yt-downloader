@@ -9,8 +9,9 @@ from pytube import YouTube #pytube3
 from pytube import Playlist
 import re
 
-from bs4 import BeautifulSoup as bs
-import requests
+
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 
 start_time = datetime.now()
 
@@ -39,14 +40,26 @@ def playlist():
 
 def download():
     playlist=[]
-    url=input("Enter the Youtube Playlist URL : ") #Takes the Playlist Link
-    r = requests.get(url)
-    page = r.text
-    soup=bs(page,'html.parser')
-    res=soup.find_all('a',{'class':'pl-video-title-link'})
-    for l in res:
-        print(l.get("href"))
 
+    driver = webdriver.Chrome()
+    driver.get("https://www.youtube.com/playlist?list=PLcYK4PlHbZQvbWClI38SfOjBt3godBsY1")
+
+    links = driver.find_elements_by_xpath("//a[@href]")
+    for link in links:
+        href = link.get_attribute("href")
+        if href.startswith('https://www.youtube.com/watch?v='):
+            playlist.append(href)
+
+    playlist = list(dict.fromkeys(playlist))
+    print(len(playlist))
+   
+    for a in playlist:
+        print(a)
+
+    # First link will be a duplicate with a different URL, because thats how YouTube playlists work
+    for l in range(1, len(playlist)):
+
+    print("zz")
 
 
 if __name__ == '__main__':
