@@ -43,7 +43,7 @@ def menu():
 
 
     while True:
-        userInput = input("Do you want to change your (s)ettings, (c)lear existing files, download a (p)laylist, (v)ideos, (m)usic or (e)xit: ").lower()
+        userInput = input("Do you want to (c)lear existing files, download a (p)laylist, (v)ideos, (m)usic or (e)xit: ").lower()
         if userInput == 'p':
             playlist()
         elif userInput == 'v':
