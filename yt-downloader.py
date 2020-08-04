@@ -16,12 +16,14 @@ from pytube import Playlist
 import re
 import os
 import getpass
-import glob
+import shutil
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 start_time = datetime.now()
+
+directory_path = r"C:\Users\Adnan\Documents\GitHub\yt-downloader\data"
 def menu():
 
     username = getpass.getuser()
@@ -52,16 +54,8 @@ def videos():
     youtube = YouTube(url)
     print(youtube.title)
 
-    # mp3 or mp4 download preference
-    pref = input("mp3 or mp4? (3/4): ").lower()
-
-
-    if pref == 'mp3' or pref == '3':
-        video = youtube.streams.filter(only_audio=True).first()
-        video.download("C:/Users/Adnan/Desktop") 
-    elif pref =='mp4' or pref == '4':
-        video = youtube.streams.first()
-        video.download("C:/Users/Adnan/Desktop") 
+    video = youtube.streams.first()
+    video.download(directory_path) 
 
 def playlist():
     playlist=[]
@@ -85,16 +79,47 @@ def playlist():
 
     # First link will be a duplicate with a different URL, because thats how YouTube playlists work
     for l in range(1, len(playlist)):
-        print(playlist[l])
+            youtube = YouTube(playlist[l])
+            video = youtube.streams.filter(only_audio=True).first()
+            file_download = video.download(directory_path)
+            # changes file to mp3
+            os.rename(file_download, file_download[0:-4]  + '.mp3')
 
     print("zz")
 
 def settings():
-    print("TB developed")
+    print("Under development")
+    # f = open('directory.txt', "r")
+    # print('Your current directory is: ' + f.read())
+    # current_dir = f.readline()
+
+    # print(str(current_dir))
+    # print(r'"' + str(current_dir) + '\directory.txt"')
+
+    # dir_input = input("Do you want to change download directory? (y/n): ").lower()
+    
+    # if dir_input == 'y':
+    #     new_dir = input("Enter new directory: ")
+    #     z = open(('r"' + current_dir + '/directory.txt"'), "w")
+    #     z.write('r"' + new_dir + '"')
+    #     z.close()
+    #     f.close()
+    # elif dir_input == 'n':
+    #     f.close()
+
 
 
 def clear():
-    print("C:\Users\Adnan\Documents\GitHub\yt-downloader\data")
+    dirpath = directory_path
+    try:
+        for filename in os.listdir(dirpath):
+            filepath = os.path.join(dirpath, filename)
+            try:
+                shutil.rmtree(filepath)
+            except OSError:
+                os.remove(filepath)
+    except:
+        print("No files are in the folder.")
 
 def music():
     while True:
@@ -106,7 +131,7 @@ def music():
             print(youtube.title)
 
             video = youtube.streams.filter(only_audio=True).first()
-            file_download = video.download("C:/Users/Adnan/Desktop")
+            file_download = video.download(directory_path)
             # changes file to mp3
             os.rename(file_download, file_download[0:-4]  + '.mp3')
             
