@@ -170,5 +170,6 @@ def music():
             print("An error occurred")
             break
 
+
 if __name__ == '__main__':
     menu()
