@@ -73,6 +73,7 @@ def videos():
 
                 if name_pref == 'y':
                     new_file_name = input("New file name: ")
+                    video.download(directory_path) 
                     print((new_file_name  + '.mp4'))
                     os.rename(file_download, (directory_path + '\\' + new_file_name  + '.mp4'))
                 elif name_pref == 'n':
@@ -87,7 +88,7 @@ def playlist():
 
         url = input("Enter URL of the PLAYLIST: ")
 
-        driver = webdriver.Chrome()
+        driver = webdriver.Edge()
         driver.get(url)
         links = driver.find_elements_by_xpath("//a[@href]")
         for link in links:
