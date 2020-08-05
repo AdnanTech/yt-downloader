@@ -73,11 +73,13 @@ def videos():
 
                 if name_pref == 'y':
                     new_file_name = input("New file name: ")
+                    video = youtube.streams.filter(res="720p").first()
                     video.download(directory_path)
                     file_download = video.download(directory_path)
                     print((new_file_name  + '.mp4'))
                     os.rename(file_download, (directory_path + '\\' + new_file_name  + '.mp4'))
                 elif name_pref == 'n':
+                    video = youtube.streams.filter(res="720p").first()
                     video.download(directory_path) 
         except:
             print("An error has occured")
@@ -116,7 +118,7 @@ def playlist():
             for l in range(2, len(playlist)):
                     youtube = YouTube(playlist[l])
                     print(youtube.title)
-                    video = youtube.streams.filter(only_audio=True).first()
+                    video = youtube.first()
                     file_download = video.download(directory_path)
                     new_file_name = input("New file name: ")
                     print((new_file_name  + '.mp3'))
