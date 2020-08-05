@@ -88,7 +88,7 @@ def playlist():
 
         url = input("Enter URL of the PLAYLIST: ")
 
-        driver = webdriver.Edge()
+        driver = webdriver.Chrome()
         driver.get(url)
         links = driver.find_elements_by_xpath("//a[@href]")
         for link in links:
