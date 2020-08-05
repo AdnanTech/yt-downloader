@@ -75,7 +75,7 @@ def videos():
                     new_file_name = input("New file name: ")
                     video.download(directory_path) 
                     print((new_file_name  + '.mp4'))
-                    os.rename(file_download, (directory_path + '\\' + new_file_name  + '.mp4'))
+                    os.rename(directory_path, (directory_path + '\\' + new_file_name  + '.mp4'))
                 elif name_pref == 'n':
                     video.download(directory_path) 
         except:
