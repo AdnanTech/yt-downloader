@@ -22,22 +22,25 @@ from selenium.webdriver.common.keys import Keys
 
 def menu():
     while True:
+        username = getpass.getuser()
         global directory_path
-        directory_path = input("Adnan's Laptop, Macbook or Sameer? (aw/am/s): ").lower()
-        if directory_path == 'aw' or directory_path == 'am' or directory_path == 's':
-            # directory_path = r"C:\Users\Adnan\Documents\GitHub\yt-downloader\data" # Default dir is my github
+        directory_path = input("Default directory, Adnan's Laptop, Macbook or Sameer? (d/aw/am/s): ").lower()
+        if directory_path == 'aw' or directory_path == 'am' or directory_path == 's' or directory_path == 'd':
 
-            if directory_path == 'aw':
+            # Default dir is the folder
+            if directory_path == 'd':
+                current_working_directory = os.getcwd()
+                current_working_directory = current_working_directory + '\\data'
+                directory_path = current_working_directory
+            elif directory_path == 'aw':
                 directory_path = r"C:\Users\Adnan\Documents\GitHub\yt-downloader\data"
-            elif directory_path == 'am':
-                directory_path = r"C:\Users\Adnan\Documents\GitHub\yt-downloader\data"
-            elif directory_path == 's':
-                directory_path = r"C:\Users\Sameer\Desktop"
+            elif directory_path == 'am' or directory_path == 's':
+                directory_path = r"C:\Users" + '\\' + username + '\\' + r"Desktop"
+                print(directory_path)
             break
 
-    username = getpass.getuser()
-    print("\n")
-    print("------------------------------------------------------------------------------------------ ")
+
+    print("\n------------------------------------------------------------------------------------------ ")
     print("----------------------------------    Hello, " + username + "     ----------------------------------- ")
     print("------------------------------------------------------------------------------------------\n")
 
