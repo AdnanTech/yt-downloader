@@ -16,7 +16,6 @@
 # https://stackoverflow.com/questions/62098925/why-my-youtube-video-downloader-only-downloads-some-videos-and-for-other-videos
 # change line 'cipher' to 'signatureCipher' in line 301 of extract.py in the library folder
 
-
 # ----------------------------------- SOURCE CODE -----------------------------------
 from datetime import datetime
 from pytube import YouTube
