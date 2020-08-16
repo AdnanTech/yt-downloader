@@ -12,7 +12,9 @@
 
 # Install libraries pytube3, selenium
 # Install chrome driver
-
+# change cipher in the library pytube3
+# https://stackoverflow.com/questions/62098925/why-my-youtube-video-downloader-only-downloads-some-videos-and-for-other-videos
+# change line 'cipher' to 'signatureCipher' in line 301 of extract.py in the library folder
 
 
 # ----------------------------------- SOURCE CODE -----------------------------------
