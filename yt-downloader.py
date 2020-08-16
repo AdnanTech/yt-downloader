@@ -8,6 +8,13 @@
 # Add option to log into yt so you can download private playlists
 # Add functionality to switch between Windows & Mac OS
 
+# ----------------------------------- DEV PRE REQUISITES -----------------------------------
+
+# Install libraries pytube3, selenium
+# Install chrome driver
+
+
+
 # ----------------------------------- SOURCE CODE -----------------------------------
 from datetime import datetime
 from pytube import YouTube
@@ -24,17 +31,15 @@ def menu():
     while True:
         username = getpass.getuser()
         global directory_path
-        directory_path = input("Default directory, Adnan's Laptop, Macbook or Sameer? (d/aw/am/s): ").lower()
-        if directory_path == 'aw' or directory_path == 'am' or directory_path == 's' or directory_path == 'd':
-
+        directory_path = input("Current directory or desktop? (d/c): ").lower()
+        if directory_path == 'd' or directory_path == 'c':
             # Default dir is the folder
             if directory_path == 'd':
                 current_working_directory = os.getcwd()
                 current_working_directory = current_working_directory + '\\data'
                 directory_path = current_working_directory
-            elif directory_path == 'aw':
-                directory_path = r"C:\Users\Adnan\Documents\GitHub\yt-downloader\data"
-            elif directory_path == 'am' or directory_path == 's':
+                print(current_working_directory)
+            elif directory_path == 'c':
                 directory_path = r"C:\Users" + '\\' + username + '\\' + r"Desktop"
                 print(directory_path)
             break
