@@ -33,23 +33,22 @@ def menu():
         username = getpass.getuser()
         global directory_path
         directory_path = input("Current directory or desktop? (d/c): ").lower()
-        if directory_path == 'd' or directory_path == 'c':
+        if directory_path == 'd' or directory_path == 'cd':
             # Default dir is the folder
             if directory_path == 'd':
+                directory_path = r"C:\Users" + '\\' + username + '\\' + r"Desktop"
+                print(directory_path)
+            elif directory_path == 'cd':
                 current_working_directory = os.getcwd()
                 current_working_directory = current_working_directory + '\\data'
                 directory_path = current_working_directory
                 print(current_working_directory)
-            elif directory_path == 'c':
-                directory_path = r"C:\Users" + '\\' + username + '\\' + r"Desktop"
-                print(directory_path)
             break
 
 
     print("\n------------------------------------------------------------------------------------------ ")
     print("----------------------------------    Hello, " + username + "     ----------------------------------- ")
     print("------------------------------------------------------------------------------------------\n")
-
 
     while True:
         userInput = input("Do you want to (c)lear existing files, download a (p)laylist, (v)ideos, (m)usic or (e)xit: ").lower()
@@ -96,8 +95,8 @@ def playlist():
         playlist=[]
 
         url = input("Enter URL of the PLAYLIST: ")
-
-        driver = webdriver.Chrome()
+        
+        driver = webdriver.Edge(executable_path = 'msedgedriver.exe')
         driver.get(url)
         links = driver.find_elements_by_xpath("//a[@href]")
         for link in links:
