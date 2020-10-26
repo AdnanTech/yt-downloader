@@ -32,7 +32,7 @@ def menu():
     while True:
         username = getpass.getuser()
         global directory_path
-        directory_path = input("Current directory or desktop? (d/c): ").lower()
+        directory_path = input("Current directory or desktop? (cd/d): ").lower()
         if directory_path == 'd' or directory_path == 'cd':
             # Default dir is the folder
             if directory_path == 'd':
@@ -86,8 +86,8 @@ def videos():
                 elif name_pref == 'n':
                     video = youtube.streams.filter(res="720p").first()
                     video.download(directory_path) 
-        except:
-            print("An error has occured")
+        except Exception as ex:
+            print("Error: " + str(ex))
             break
 
 def playlist():
@@ -143,8 +143,8 @@ def playlist():
                     # changes file to mp3
                     os.rename(file_download, file_download[0:-4]  + '.mp3')
         print("Playlist downloaded successfully")
-    except:
-        print("An error occurred.")
+    except Exception as ex:
+        print("Error: " + str(ex))
 
 def clear():
     dirpath = directory_path
@@ -178,8 +178,8 @@ def music():
                     os.rename(file_download, (directory_path + '\\' + new_file_name  + '.mp3'))
                 elif name_pref == 'n':
                     os.rename(file_download, file_download[0:-4]  + '.mp3')
-        except:
-            print("An error occurred")
+        except Exception as ex:
+            print("Error: " + str(ex))
             break
 
 
